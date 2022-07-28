@@ -1,0 +1,7 @@
+{
+  "name": "CypressTest",
+  "version": "1.0.0",
+  "devDependencies": {
+    "cypress": "^10.3.1"
+  }
+}
