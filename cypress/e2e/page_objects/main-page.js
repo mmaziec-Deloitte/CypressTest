@@ -1,3 +1,5 @@
+
+
 export class MainPage {
 
     static openAutomationPracticePage() {
@@ -34,12 +36,8 @@ export class MainPage {
     static addItem1() {
 
         cy.wait(4000);
-       /* cy.get('#our_price_display').should(($price1) => {
-            const productPrice1 = $price1.text();
-            cy.log(productPrice1);
-        });*/
         cy.get('.exclusive').contains('Add to cart').click();
-        cy.wait(12000);
+        cy.wait(6000);
         cy.get('.continue').contains('Continue shopping').click();
         //return productPrice1;
     }
@@ -51,21 +49,53 @@ export class MainPage {
     static addItem2() {
 
         cy.wait(4000);
-        cy.get('#our_price_display').should('contains', '$27.00')
-        /*cy.get('#our_price_display').should(($price2) => {
-            const productPrice2 = $price2.text();
-            cy.log(productPrice2);
-        });*/
         cy.get('.exclusive').contains('Add to cart').click();
-        cy.wait(12000);
+        cy.wait(6000);
         cy.get('#layer_cart > div.clearfix > div.layer_cart_cart.col-xs-12.col-md-6 > div.button-container > a').contains('Proceed to checkout').click();
         //return productPrice2;
     }
 
-    static comparePrices(price1, price2){
+    static comparePrices(){
+        let price1;
+        cy.readFile('./prices.json').then((list) => {
+            price1 = list[0];
+            //price2 = list[1].price
+        });
+        let price2;
+        cy.readFile('./prices.json').then((list) => {
+            price2 = list[1];
+            //price2 = list[1].price
+        });;
+
         cy.get('#product_price_1_1_0 > span').should('have.text', price1);
         cy.get('#product_price_2_7_0 > span').should('have.text', price2);
+    }
 
+    static getPriceForItem1(){
+        let price1 = cy.get('#homefeatured > li.ajax_block_product.col-xs-12.col-sm-4.col-md-3.first-in-line.first-item-of-tablet-line.first-item-of-mobile-line > div > div.right-block > div.content_price > span')
 
+            .invoke('text').then(sometext => {
+            const cena = sometext;
+            cy.log("Cena: ",cena);
+                cy.readFile("./prices.json").then((list) => {
+                    list.push({price: cena.trim()})
+                    cy.writeFile("./prices.json", list);
+                })
+        });
+        return price1;
+    }
+
+    static getPriceForItem2(){
+        let price2 = cy.get('#homefeatured > li:nth-child(2) > div > div.right-block > div.content_price > span')
+
+            .invoke('text').then(sometext => {
+            const cena = sometext;
+            cy.log("Cena: ",cena);
+                cy.readFile("./prices.json").then((list) => {
+                    list.push({price: cena.trim()})
+                    cy.writeFile("./prices.json", list);
+                })
+        });
+        return price2;
     }
 }

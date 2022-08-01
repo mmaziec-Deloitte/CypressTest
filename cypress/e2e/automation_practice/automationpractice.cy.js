@@ -53,12 +53,14 @@ context('e-shop go to', () => {
 
         it.only('should add two products and check their prices', () => {
 
+            let price1 = MainPage.getPriceForItem1();
+            let price2 = MainPage.getPriceForItem2();
             MainPage.clickPhoto1();
-            const price1 = MainPage.addItem1();
+            MainPage.addItem1();
             MainPage.openAutomationPracticePage();
             MainPage.clickPhoto2();
-            const price2 = MainPage.addItem2();
-            MainPage.comparePrices(price1, price2);
+            MainPage.addItem2();
+            MainPage.comparePrices();
 
 
         })
