@@ -50,17 +50,21 @@ context('e-shop go to', () => {
         })
 
     describe('add two products to the cart and check their prices', () => {
+    //it.only
+        it('should add two products and check their prices', () => {
 
-        it.only('should add two products and check their prices', () => {
+            //MainPage.getItemPricesFromMobile();
+            MainPage.getPriceForItem1();
+            MainPage.getPriceForItem2();
 
-            let price1 = MainPage.getPriceForItem1();
-            let price2 = MainPage.getPriceForItem2();
             MainPage.clickPhoto1();
             MainPage.addItem1();
             MainPage.openAutomationPracticePage();
             MainPage.clickPhoto2();
             MainPage.addItem2();
-            MainPage.comparePrices();
+            MainPage.comparePricesFromMobile();
+            //MainPage.comparePrices(prices);
+            //MainPage.comparePricesFromMobile(prices);
 
 
         })

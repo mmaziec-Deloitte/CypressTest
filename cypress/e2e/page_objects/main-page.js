@@ -72,30 +72,56 @@ export class MainPage {
     }
 
     static getPriceForItem1(){
-        let price1 = cy.get('#homefeatured > li.ajax_block_product.col-xs-12.col-sm-4.col-md-3.first-in-line.first-item-of-tablet-line.first-item-of-mobile-line > div > div.right-block > div.content_price > span')
+        cy.get('#homefeatured > li.ajax_block_product.col-xs-12.col-sm-4.col-md-3.first-in-line.first-item-of-tablet-line.first-item-of-mobile-line > div > div.right-block > div.content_price > span')
 
             .invoke('text').then(sometext => {
             const cena = sometext;
             cy.log("Cena: ",cena);
-                cy.readFile("./prices.json").then((list) => {
+                cy.readFile("./cypress/fixtures/prices.json").then((list) => {
                     list.push({price: cena.trim()})
                     cy.writeFile("./prices.json", list);
                 })
         });
-        return price1;
     }
 
     static getPriceForItem2(){
-        let price2 = cy.get('#homefeatured > li:nth-child(2) > div > div.right-block > div.content_price > span')
+        cy.get('#homefeatured > li:nth-child(2) > div > div.right-block > div.content_price > span')
 
             .invoke('text').then(sometext => {
             const cena = sometext;
             cy.log("Cena: ",cena);
-                cy.readFile("./prices.json").then((list) => {
+                cy.readFile("./cypress/fixtures/prices.json").then((list) => {
                     list.push({price: cena.trim()})
                     cy.writeFile("./prices.json", list);
                 })
         });
-        return price2;
+    }
+
+    static getItemPricesFromMobile(){
+        let price1;
+        cy.get('#homefeatured > li.ajax_block_product.col-xs-12.col-sm-4.col-md-3.first-in-line.first-item-of-tablet-line.first-item-of-mobile-line > div > div.right-block > div.content_price > span')
+            .invoke('text').then(sometext => {
+                const cena = sometext;
+                cy.log("Cena: ",cena)
+                price1 = cena;
+            });;
+        let price2;
+        cy.get('#homefeatured > li:nth-child(2) > div > div.right-block > div.content_price > span')
+            .invoke('text').then(sometext => {
+            const cena = sometext;
+            cy.log("Cena: ",cena)
+            price2 = cena;
+        });;
+        cy.log("Cena: ",price1);
+        cy.log("Cena: ",price2);
+        return [price1, price2];
+    }
+
+    static comparePricesFromMobile(){
+        cy.fixture("prices.json").then(priceData => {
+            cy.get('#product_price_1_1_0 > span').should('have.text', priceData[0].price);
+            cy.get('#product_price_2_7_0 > span').should('have.text', priceData[1].price);
+        })
+
     }
 }
