@@ -2,8 +2,7 @@
 import {MainPage} from "../page_objects/main-page"
 import {Login} from "../page_objects/login"
 import {MyAccountPage} from "../page_objects/my-account-page"
-//import {WomenPage} from "../page_objects/women-page"
-//import {ShoppingCart} from "../page_objects/shopping_cart-page"
+
 
 context('e-shop go to', () => {
     beforeEach(() => {
@@ -14,12 +13,10 @@ context('e-shop go to', () => {
 
         it('should open category: Women', () => {
             MainPage.clickCategory('Women');
-           // WomenPage.checkIfWomenCategoryisOpen();
         })
 
         it('should open cart page', () => {
             MainPage.clickShoppingCart();
-           // ShoppingCart.checkIfShoppingCartisOpen();
         })
 
     })
@@ -38,11 +35,18 @@ context('e-shop go to', () => {
 
     describe('sign-in with json data', () => {
 
-        it('should sign in to the given account and check user details', () => {
+        it.only('should sign in to the given account and check user details', () => {
             cy.fixture('data.json').then(users => {
                 MainPage.clickSignIn();
-                Login.provideEmailJson(users.email);
-                Login.providePasswordJson(users.password);
+                Login.provideEmailJson(users[0].email);
+                Login.providePasswordJson(users[0].password);
+                Login.clickSignInButton();
+                MyAccountPage.CheckMyInfo("My personal information");
+                MainPage.clickSignOut();
+                MainPage.openAutomationPracticePage();
+                MainPage.clickSignIn();
+                Login.provideEmailJson(users[1].email);
+                Login.providePasswordJson(users[1].password);
                 Login.clickSignInButton();
                 MyAccountPage.CheckMyInfo("My personal information");
             })
@@ -50,23 +54,16 @@ context('e-shop go to', () => {
         })
 
     describe('add two products to the cart and check their prices', () => {
-    //it.only
         it('should add two products and check their prices', () => {
 
-            //MainPage.getItemPricesFromMobile();
             MainPage.getPriceForItem1();
             MainPage.getPriceForItem2();
-
             MainPage.clickPhoto1();
             MainPage.addItem1();
             MainPage.openAutomationPracticePage();
             MainPage.clickPhoto2();
             MainPage.addItem2();
             MainPage.comparePricesFromMobile();
-            //MainPage.comparePrices(prices);
-            //MainPage.comparePricesFromMobile(prices);
-
-
         })
     })
 

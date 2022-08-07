@@ -39,7 +39,6 @@ export class MainPage {
         cy.get('.exclusive').contains('Add to cart').click();
         cy.wait(6000);
         cy.get('.continue').contains('Continue shopping').click();
-        //return productPrice1;
     }
 
     static clickPhoto2() {
@@ -52,7 +51,6 @@ export class MainPage {
         cy.get('.exclusive').contains('Add to cart').click();
         cy.wait(6000);
         cy.get('#layer_cart > div.clearfix > div.layer_cart_cart.col-xs-12.col-md-6 > div.button-container > a').contains('Proceed to checkout').click();
-        //return productPrice2;
     }
 
     static comparePrices(){
@@ -123,5 +121,9 @@ export class MainPage {
             cy.get('#product_price_2_7_0 > span').should('have.text', priceData[1].price);
         })
 
+    }
+
+    static clickSignOut() {
+        cy.get('#header > div.nav > div > div > nav > div:nth-child(2) > a').contains(("Sign out")).click();
     }
 }

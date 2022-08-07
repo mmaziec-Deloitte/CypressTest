@@ -1,5 +1,11 @@
-{
-  "email": "mmaziec@deloittece.com",
-  "password": "StarWars"
+[
+  {
+    "email": "mmaziec@deloittece.com",
+    "password": "StarWars"
+  },
 
-}
+  {
+    "email": "m-maziec@wp.pl",
+    "password": "LolLol123"
+  }
+]

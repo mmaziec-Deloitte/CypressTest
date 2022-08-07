@@ -1,8 +1,6 @@
 export class MyAccountPage {
 
     static CheckMyInfo(name){
-
-        cy.get('.myaccount-link-list').contains(name).click();
-
+        cy.get('#center_column > h1').should('contain', 'My account');
     }
 }
