@@ -35,7 +35,7 @@ context('e-shop go to', () => {
 
     describe('sign-in with json data', () => {
 
-        it.only('should sign in to the given account and check user details', () => {
+        it('should sign in to the given account and check user details', () => {
             cy.fixture('data.json').then(users => {
                 MainPage.clickSignIn();
                 Login.provideEmailJson(users[0].email);
