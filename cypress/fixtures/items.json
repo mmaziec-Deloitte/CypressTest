@@ -1,0 +1,13 @@
+[
+  {
+  "id": 1,
+  "name": "Printed Dress",
+  "price": 26.00
+},
+
+  {
+    "id": 2,
+    "name": "Printed Summer Dress",
+    "price": 28.98
+  }
+]
